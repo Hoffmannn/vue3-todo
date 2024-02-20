@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 import type { Todo } from '@/types/Todo.vue'
 
 const getTodosFromLocalStorage = JSON.parse(localStorage.getItem('todos') || '[]')
-const saveTodosToLocalStorage = (todos) => localStorage.setItem('todos', JSON.stringify(todos))
+const saveTodosToLocalStorage = (todos: Todo[]) =>
+  localStorage.setItem('todos', JSON.stringify(todos))
 
 export const useTodosStore = defineStore('todo', () => {
   const todos = reactive<Todo[]>(getTodosFromLocalStorage)

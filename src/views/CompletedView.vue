@@ -11,8 +11,8 @@ const { completedTodos } = storeToRefs(todosStore)
 <template>
   <div class="completed">
     <h1>Completed</h1>
-    <TodoList v-bind:todos="completedTodos" />
-    <p class="no-todos" v-if="completedTodos.length === 0">No completed todos!</p>
+    <TodoList v-if="completedTodos.length > 0" v-bind:todos="completedTodos" />
+    <p class="no-todos" v-else>No completed todos!</p>
   </div>
 </template>
 
