@@ -3,41 +3,44 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <main>
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
 
-    <div class="wrapper"> 
+
       <nav>
-        <RouterLink to="/">My Todos</RouterLink>
+        <RouterLink to="/">All Todos</RouterLink>
         <RouterLink to="/completed">Completed Todos</RouterLink>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 header {
+  display: flex;
+  flex-direction: row;
   line-height: 1.5;
   max-height: 100vh;
+  align-items: center;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  text-decoration: underline;
 }
+
+nav :not(a.router-link-exact-active) {
+  color: var(--color-text)
+}
+
 
 nav a.router-link-exact-active:hover {
   background-color: transparent;

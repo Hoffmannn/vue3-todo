@@ -24,17 +24,58 @@ const handleAddTodo = (todo: string) => {
 
 <template>
   <div class="home">
+    <h1>Todo list </h1>
 
-    <h1>ToDo List</h1>
-    <input @change="handleAddTodo(($event.target as HTMLTextAreaElement).value)"
-      @keypress="state.input = ($event.target as HTMLTextAreaElement).value" v-model="state.input"
-      placeholder="Add a new todo" />
-    <button @click="handleAddTodo(state.input)">Add</button>
-    <TodoList :todos="pendingTodos" />
+    <div class="input-container">
 
-    <h2>Completed</h2>
-    <TodoList :todos="completedTodos" />
+      <input type="text" @change="handleAddTodo(($event.target as HTMLTextAreaElement).value)"
+        @input="state.input = ($event.target as HTMLTextAreaElement).value" v-model="state.input"
+        placeholder="Add a new todo" />
+      <button @click="handleAddTodo(state.input)">Add</button>
+    </div>
+
+    <main>
+      <section>
+        <h2>Completed</h2>
+        <TodoList :todos="pendingTodos" />
+
+        <p class="no-todos" v-if="pendingTodos.length === 0">Nothing todo!</p>
+      </section>
+
+      <section>
+        <h2>Completed</h2>
+        <TodoList :todos="completedTodos" />
+        <p class="no-todos" v-if="completedTodos.length === 0">No completed todos</p>
+      </section>
+    </main>
   </div>
 </template>
+
+<style scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.input-container {
+  display: flex;
+}
+
+section {
+  text-align: center;
+  width: 25%;
+}
+</style>
 
  
