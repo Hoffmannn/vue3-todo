@@ -1,25 +1,25 @@
-import { ref, computed, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import type { Todo } from '@/types/Todo.vue'
 
+const getTodosFromLocalStorage = JSON.parse(localStorage.getItem('todos') || '[]')
+const saveTodosToLocalStorage = (todos) => localStorage.setItem('todos', JSON.stringify(todos))
+
 export const useTodosStore = defineStore('todo', () => {
-  const todos = reactive<Todo[]>([
-    { id: 0, text: 'test', done: false, isEditing: false },
-    { id: 1, text: 'test done', done: true, isEditing: false }
-  ])
+  const todos = reactive<Todo[]>(getTodosFromLocalStorage)
   const pendingTodos = computed(() => todos.filter((todo) => !todo.done))
   const completedTodos = computed(() => todos.filter((todo) => todo.done))
 
-  const nextId = ref(2)
+  const generateRandomId = () => Math.floor(Math.random() * 100000)
 
   function addTodo(text: string) {
     todos.push({
-      id: nextId.value,
+      id: generateRandomId(),
       text,
       done: false,
       isEditing: false
     })
-    nextId.value++
+    saveTodosToLocalStorage(todos)
   }
 
   function editTodo(todo: Todo) {
@@ -27,6 +27,7 @@ export const useTodosStore = defineStore('todo', () => {
     if (todoIndex !== -1) {
       todos[todoIndex] = todo
     }
+    saveTodosToLocalStorage(todos)
   }
 
   function deleteTodo(id: number) {
@@ -34,6 +35,7 @@ export const useTodosStore = defineStore('todo', () => {
     if (index !== -1) {
       todos.splice(index, 1)
     }
+    saveTodosToLocalStorage(todos)
   }
 
   return { addTodo, editTodo, deleteTodo, todos, pendingTodos, completedTodos }

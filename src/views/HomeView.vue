@@ -36,16 +36,15 @@ const handleAddTodo = (todo: string) => {
 
     <main>
       <section>
-        <h2>Completed</h2>
-        <TodoList :todos="pendingTodos" />
-
-        <p class="no-todos" v-if="pendingTodos.length === 0">Nothing todo!</p>
+        <h2>Pending</h2>
+        <TodoList v-if="pendingTodos.length > 0" :todos="pendingTodos" />
+        <p class="no-todos" v-else>Nothing todo!</p>
       </section>
 
       <section>
         <h2>Completed</h2>
-        <TodoList :todos="completedTodos" />
-        <p class="no-todos" v-if="completedTodos.length === 0">No completed todos</p>
+        <TodoList v-if="completedTodos.length > 0" :todos="completedTodos" />
+        <p class="no-todos" v-else>No completed todos</p>
       </section>
     </main>
   </div>

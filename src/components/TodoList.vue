@@ -56,3 +56,17 @@ const handleSaveTodo = (item: Todo) => {
     </ul>
 </template>
  
+<style scoped>
+ul {
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+li,
+li>span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+</style>
